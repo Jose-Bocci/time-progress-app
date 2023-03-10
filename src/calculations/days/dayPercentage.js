@@ -37,7 +37,7 @@ export default function dayPercentage() {
     case "DÍA":
     case "HORAS DE TRABAJO":
       timePercentage =
-        100 - (completeMorning - ((actualTime - completeMorning) * 100) / completeMorning);
+        100 - (completeMorning - ((actualTime - dayStart) * 100) / completeMorning);
       break;
     case "TARDE":
       timePercentage =
