@@ -103,6 +103,14 @@ function App() {
             {dayValue} <LinearProgressWithLabel value={dayPercentageValue} />
           </div>
         </div>
+        <div className="footer">
+          <p>App desarrollada por José Bocci en 2023.</p>
+          <p>
+            Para el horario laboral se utiliza el horario municipal: 08:00 -
+            14:00
+          </p>
+          <p> Horarios usados de Mendoza, Argentina.</p>
+        </div>
       </div>
     );
   } catch (error) {
