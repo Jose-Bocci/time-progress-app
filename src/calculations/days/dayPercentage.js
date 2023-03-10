@@ -13,7 +13,6 @@ export default function dayPercentage() {
   const nightTime = 11 * 60 * 60 * 1000 + 30 * 60 * 1000;
   const dayTime = 30 * 60 * 1000;
   const workTime = 6 * 60 * 60 * 1000;
-  const completeMorning = dayTime+workTime;
   const afternoonTime = 6 * 60 * 60 * 1000;
   actualTime =
     date.getHours() * 60 * 60 * 1000 +
@@ -34,10 +33,13 @@ export default function dayPercentage() {
           100 - ((nightTime - (actualTime - nightStart)) * 100) / nightTime;
       }
       break;
-    case "DÍA":
-    case "HORAS DE TRABAJO":
+    case "MAÑANA":
       timePercentage =
-        100 - (completeMorning - ((actualTime - dayStart) * 100) / completeMorning);
+        100 - ((dayTime - (actualTime - dayStart)) * 100) / dayTime;
+      break;
+    case "HORARIO LABORAL":
+      timePercentage =
+        100 - ((workTime - (actualTime - workStart)) * 100) / workTime;
       break;
     case "TARDE":
       timePercentage =

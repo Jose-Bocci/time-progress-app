@@ -8,10 +8,10 @@ export default function day() {
     state = "TARDE";
   }
   if (date.getHours() >= 8 && date.getHours() < 14) {
-    state = "HORAS DE TRABAJO";
+    state = "HORARIO LABORAL";
   }
   if (date.getHours() >= 7 && date.getMinutes() >= 30 && date.getHours() < 8) {
-    state = "DÍA";
+    state = "MAÑANA";
   }
   return state;
 }
