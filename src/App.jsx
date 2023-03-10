@@ -103,7 +103,6 @@ function App() {
             {dayValue} <LinearProgressWithLabel value={dayPercentageValue} />
           </div>
         </div>
-        <h6>Hola</h6>
       </div>
     );
   } catch (error) {
