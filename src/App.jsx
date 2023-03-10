@@ -14,6 +14,8 @@ import seasonNormalYear from "./calculations/seasons/seasonNormalYear";
 import year from "./calculations/years/year";
 import yearPercentage from "./calculations/years/yearPercentage";
 import LinearProgressWithLabel from "./linearProgress/linearProgressWithLabel";
+import { TimeSelection } from "./app/features/timeSelection";
+import { useSelector } from "react-redux";
 
 function App() {
   try {
@@ -28,6 +30,14 @@ function App() {
     const [dayPercentageValue, setDayPercentageValue] = React.useState(0);
     const leapBefore = leapYear(new Date().getFullYear() - 1);
     const minuteInterval = 1;
+    const [oculto, setOculto] = React.useState(true);
+    const timeHourStart = useSelector((state) => state.timeState.start_hour);
+    const timeHourEnd = useSelector((state) => state.timeState.end_hour);
+    const timeMinutesStart = useSelector(
+      (state) => state.timeState.start_minutes
+    );
+    const timeMinutesEnd = useSelector((state) => state.timeState.end_minutes);
+    const [cambio, setCambio] = React.useState(false);
 
     function fillValues() {
       leapYear(new Date().getFullYear())
@@ -48,8 +58,17 @@ function App() {
       setYearPercentageValue(yearPercentage());
       setMonthValue(month());
       setMonthPercentageValue(monthPercentage());
-      setDayValue(day());
-      setDayPercentageValue(dayPercentage());
+      setDayValue(
+        day(timeHourStart, timeHourEnd, timeMinutesStart, timeMinutesEnd)
+      );
+      setDayPercentageValue(
+        dayPercentage(
+          timeHourStart,
+          timeHourEnd,
+          timeMinutesStart,
+          timeMinutesEnd
+        )
+      );
     }
 
     React.useEffect(() => {
@@ -58,6 +77,10 @@ function App() {
         fillValues();
       }, 1000 * minuteInterval * 60);
     }, []);
+
+    React.useEffect(() => {
+      fillValues();
+    }, [timeHourStart, timeHourEnd, timeMinutesStart, timeMinutesEnd]);
 
     //#endregion
 
@@ -102,6 +125,9 @@ function App() {
           >
             {dayValue} <LinearProgressWithLabel value={dayPercentageValue} />
           </div>
+        </div>
+        <div>
+          <TimeSelection fillValues={fillValues} />
         </div>
         <div className="footer">
           <p>App desarrollada por José Bocci en 2023.</p>
