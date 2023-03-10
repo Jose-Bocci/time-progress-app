@@ -1,4 +1,5 @@
 {
+  "homepage": "https://Jose-Bocci.github.io/time-progress-app",
   "name": "timeapp",
   "private": true,
   "version": "0.0.0",
@@ -6,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
