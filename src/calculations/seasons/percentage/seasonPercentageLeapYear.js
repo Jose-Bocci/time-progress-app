@@ -16,47 +16,47 @@ export default function seasonPercentageLeapYear() {
     case "VERANO":
       if (dayOfYear >= December.normal) {
         seasonDay = dayOfYear - December.normal;
-        seasonPercentage = Math.floor((seasonDay * 100) / 91);
+        seasonPercentage = (seasonDay * 100) / 91;
       } else {
         if (dayOfYear <= March.leapYear) {
           seasonDay = March.leapYear - dayOfYear;
-          seasonPercentage = Math.floor(((91 - seasonDay) * 100) / 91);
+          seasonPercentage = ((91 - seasonDay) * 100) / 91;
         }
       }
       break;
     case "OTOÑO":
       if (dayOfYear >= March.leapYear) {
         seasonDay = dayOfYear - March.leapYear;
-        seasonPercentage = Math.floor((seasonDay * 100) / 92);
+        seasonPercentage = (seasonDay * 100) / 92;
       } else {
         if (dayOfYear <= June.leapYear) {
           seasonDay = June.leapYear - dayOfYear;
-          seasonPercentage = Math.floor(((92 - seasonDay) * 100) / 92);
+          seasonPercentage = ((92 - seasonDay) * 100) / 92;
         }
       }
       break;
     case "INVIERNO":
       if (dayOfYear >= June.leapYear) {
         seasonDay = dayOfYear - June.leapYear;
-        seasonPercentage = Math.floor((seasonDay * 100) / 92);
+        seasonPercentage = (seasonDay * 100) / 92;
       } else {
         if (dayOfYear <= September.leapYear) {
           seasonDay = September.leapYear - dayOfYear;
-          seasonPercentage = Math.floor(((92 - seasonDay) * 100) / 92);
+          seasonPercentage = ((92 - seasonDay) * 100) / 92;
         }
       }
       break;
     case "PRIMAVERA":
       if (dayOfYear >= September.leapYear) {
         seasonDay = dayOfYear - September.leapYear;
-        seasonPercentage = Math.floor((seasonDay * 100) / 91);
+        seasonPercentage = (seasonDay * 100) / 91;
       } else {
         if (dayOfYear <= December.leapYear) {
           seasonDay = December.leapYear - dayOfYear;
-          seasonPercentage = Math.floor(((91 - seasonDay) * 100) / 91);
+          seasonPercentage = ((91 - seasonDay) * 100) / 91;
         }
       }
       break;
   }
-  return seasonPercentage;
+  return parseFloat(seasonPercentage.toFixed(2));
 }

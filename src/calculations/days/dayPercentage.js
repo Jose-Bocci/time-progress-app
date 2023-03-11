@@ -27,7 +27,9 @@ export default function dayPercentage(
   const afternoonTime = nightStart - workEnd;
   const nightTime = 11 * 60 * 60 * 1000 + 30 * 60 * 1000;
   let actualTime =
-    date.getHours() * 60 * 60 * 1000 + date.getMinutes() * 60 * 1000;
+    date.getHours() * 60 * 60 * 1000 +
+    date.getMinutes() * 60 * 1000 +
+    date.getSeconds() * 1000;
   // let testTime = 0 * 60 * 60 * 1000 + 0 * 60 * 1000;
   let timeOfDay = day(
     timeHourStart,
@@ -55,5 +57,5 @@ export default function dayPercentage(
       timePercentage = ((actualTime - afternoonStart) * 100) / afternoonTime;
       break;
   }
-  return timePercentage;
+  return parseFloat(timePercentage.toFixed(2));
 }
