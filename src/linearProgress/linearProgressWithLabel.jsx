@@ -14,7 +14,7 @@ export default function LinearProgressWithLabel(props) {
           variant="body2"
           color="white"
           fontSize={"120%"}
-        >{`${Math.floor(props.value)}%`}</Typography>
+        >{`${Math.round(props.value)}%`}</Typography>
       </Box>
     </Box>
   );
