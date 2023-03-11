@@ -26,11 +26,13 @@ export default function dayPercentage(
   const dayTime = workStart - (7 * 60 * 60 * 1000 + 30 * 60 * 1000);
   const afternoonTime = nightStart - workEnd;
   const nightTime = 11 * 60 * 60 * 1000 + 30 * 60 * 1000;
+  const midDay = 12 * 60 * 60 * 1000;
+  const allAfternoon = nightStart - midDay;
   let actualTime =
     date.getHours() * 60 * 60 * 1000 +
     date.getMinutes() * 60 * 1000 +
     date.getSeconds() * 1000;
-  // let testTime = 0 * 60 * 60 * 1000 + 0 * 60 * 1000;
+  // let testTime = 12 * 60 * 60 * 1000 + 0 * 60 * 1000;
   let timeOfDay = day(
     timeHourStart,
     timeHourEnd,
@@ -48,13 +50,16 @@ export default function dayPercentage(
       break;
     case "MAÑANA":
       timePercentage = ((actualTime - dayStart) * 100) / dayTime;
-
       break;
     case "HORARIO LABORAL":
       timePercentage = ((actualTime - workStart) * 100) / workTime;
       break;
     case "TARDE":
-      timePercentage = ((actualTime - afternoonStart) * 100) / afternoonTime;
+      if (date.getDay() === 0 || date.getDay() === 6) {
+        timePercentage = ((actualTime - midDay) * 100) / allAfternoon;
+      } else {
+        timePercentage = ((actualTime - afternoonStart) * 100) / afternoonTime;
+      }
       break;
   }
   return parseFloat(timePercentage.toFixed(2));
