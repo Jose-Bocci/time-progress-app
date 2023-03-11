@@ -4,10 +4,10 @@ import seasonLeapYear from "../seasonLeapYear";
 let seasonPercentage = 0;
 let seasonDay;
 
-const December = { normal: 355, leapYear: 356 };
-const March = { normal: 80, leapYear: 81 };
-const June = { normal: 172, leapYear: 173 };
-const September = { normal: 264, leapYear: 265 };
+const December = { normal: 354, leapYear: 354 };
+const March = { normal: 79, leapYear: 80 };
+const June = { normal: 171, leapYear: 172 };
+const September = { normal: 263, leapYear: 264 };
 
 export default function seasonPercentageLeapYear() {
   const dayOfYear = calcDayOfYear();
