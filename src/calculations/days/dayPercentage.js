@@ -13,11 +13,6 @@ export default function dayPercentage(
   timeMinuteStart,
   timeMinuteEnd
 ) {
-  // console.log(timeHourStart, timeMinuteStart, timeHourEnd, timeMinuteEnd);
-  const timeHStart = timeHourStart,
-    timeMStart = timeMinuteStart,
-    timeHEnd = timeHourEnd,
-    timeMEnd = timeMinuteEnd;
   const date = new Date();
   let timePercentage;
   const dayStart = 7 * 60 * 60 * 1000 + 30 * 60 * 1000;
@@ -34,7 +29,12 @@ export default function dayPercentage(
   let actualTime =
     date.getHours() * 60 * 60 * 1000 + date.getMinutes() * 60 * 1000;
   // let testTime = 0 * 60 * 60 * 1000 + 0 * 60 * 1000;
-  let timeOfDay = day(timeHStart, timeHEnd, timeMStart, timeMEnd);
+  let timeOfDay = day(
+    timeHourStart,
+    timeHourEnd,
+    timeMinuteStart,
+    timeMinuteEnd
+  );
   switch (timeOfDay) {
     case "NOCHE":
       if (actualTime >= nightStart) {

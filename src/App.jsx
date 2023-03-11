@@ -17,6 +17,7 @@ import LinearProgressWithLabel from "./linearProgress/linearProgressWithLabel";
 import { TimeSelection } from "./app/features/timeSelection";
 import { useSelector } from "react-redux";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { store } from "./app/store";
 
 function App() {
   try {
@@ -30,15 +31,26 @@ function App() {
     const [dayValue, setDayValue] = React.useState("");
     const [dayPercentageValue, setDayPercentageValue] = React.useState(0);
     const leapBefore = leapYear(new Date().getFullYear() - 1);
-    const minuteInterval = 1;
+    const secondInterval = 1;
     const [oculto, setOculto] = React.useState(true);
+    // const [timeHourStart, setTimeHourStart] = React.useState(
+    //   useSelector((state) => state.timeState.start_hour)
+    // );
+    // const [timeHourEnd, setTimeHourEnd] = React.useState(
+    //   useSelector((state) => state.timeState.end_hour)
+    // );
+    // const [timeMinutesStart, setTimeMinutesStart] = React.useState(
+    //   useSelector((state) => state.timeState.start_minutes)
+    // );
+    // const [timeMinutesEnd, setTimeMinutesEnd] = React.useState(
+    //   useSelector((state) => state.timeState.end_minutes)
+    // );
     const timeHourStart = useSelector((state) => state.timeState.start_hour);
     const timeHourEnd = useSelector((state) => state.timeState.end_hour);
     const timeMinutesStart = useSelector(
       (state) => state.timeState.start_minutes
     );
     const timeMinutesEnd = useSelector((state) => state.timeState.end_minutes);
-    const [cambio, setCambio] = React.useState(false);
 
     function fillValues() {
       leapYear(new Date().getFullYear())
@@ -60,28 +72,39 @@ function App() {
       setMonthValue(month());
       setMonthPercentageValue(monthPercentage());
       setDayValue(
-        day(timeHourStart, timeHourEnd, timeMinutesStart, timeMinutesEnd)
-      );
-      setDayPercentageValue(
-        dayPercentage(
-          timeHourStart,
-          timeHourEnd,
-          timeMinutesStart,
-          timeMinutesEnd
+        day(
+          store.getState().timeState.start_hour,
+          store.getState().timeState.end_hour,
+          store.getState().timeState.start_minutes,
+          store.getState().timeState.end_minutes
         )
       );
+      // console.log({ timeHourEnd });
+      setDayPercentageValue(
+        dayPercentage(
+          store.getState().timeState.start_hour,
+          store.getState().timeState.end_hour,
+          store.getState().timeState.start_minutes,
+          store.getState().timeState.end_minutes
+        )
+      );
+      // console.log({ timeHourEnd });
     }
 
-    React.useEffect(() => {
-      fillValues();
-      setInterval(() => {
-        fillValues();
-      }, 1000 * minuteInterval * 60);
-    }, []);
+    // React.useEffect(() => {
+    //   fillValues();
+    // }, []);
 
     React.useEffect(() => {
       fillValues();
+      // console.log(store.getState().timeState.end_hour);
     }, [timeHourStart, timeHourEnd, timeMinutesStart, timeMinutesEnd]);
+
+    React.useEffect(() => {
+      setInterval(() => {
+        fillValues();
+      }, 1000 * secondInterval);
+    }, []);
 
     //#endregion
 
@@ -132,12 +155,23 @@ function App() {
           <p>App desarrollada por José Bocci en 2023.</p>
           <p>
             Para el horario laboral se utiliza:{" "}
-            {timeHourStart < 10 ? "0".concat(timeHourStart) : timeHourStart}:
-            {timeMinutesStart < 10
-              ? "0".concat(timeMinutesStart)
-              : timeMinutesStart}{" "}
-            - {timeHourEnd < 10 ? "0".concat(timeHourEnd) : timeHourEnd}:
-            {timeMinutesEnd < 10 ? "0".concat(timeMinutesEnd) : timeMinutesEnd}{" "}
+            {useSelector((state) => state.timeState.start_hour) < 10
+              ? "0".concat(useSelector((state) => state.timeState.start_hour))
+              : useSelector((state) => state.timeState.start_hour)}
+            :
+            {useSelector((state) => state.timeState.start_minutes) < 10
+              ? "0".concat(
+                  useSelector((state) => state.timeState.start_minutes)
+                )
+              : useSelector((state) => state.timeState.start_minutes)}{" "}
+            -{" "}
+            {useSelector((state) => state.timeState.end_hour) < 10
+              ? "0".concat(useSelector((state) => state.timeState.end_hour))
+              : useSelector((state) => state.timeState.end_hour)}
+            :
+            {useSelector((state) => state.timeState.end_minutes) < 10
+              ? "0".concat(useSelector((state) => state.timeState.end_minutes))
+              : useSelector((state) => state.timeState.end_minutes)}{" "}
             <SettingsOutlinedIcon onClick={() => setOculto(!oculto)} />
           </p>
           <div>
