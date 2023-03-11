@@ -19,49 +19,41 @@ export default function dayPercentage(
     timeHEnd = timeHourEnd,
     timeMEnd = timeMinuteEnd;
   const date = new Date();
-  let actualTime, timePercentage;
-  const timeStart =
-    timeHourStart * 60 * 60 * 1000 + timeMinuteStart * 60 * 1000;
-  const nightTime = 11 * 60 * 60 * 1000 + 30 * 60 * 1000;
-  const dayTime = timeStart - (7 * 60 * 60 * 1000 + 30 * 60 * 1000);
-  const workTime = (timeHourEnd - timeHourStart) * 60 * 60 * 1000;
-  const afternoonTime =
-    (20 - timeHourEnd) * 60 * 60 * 1000 - timeMinuteEnd * 60 * 1000;
-  actualTime =
-    date.getHours() * 60 * 60 * 1000 +
-    date.getMinutes() * 60 * 1000 +
-    date.getSeconds() * 1000;
-  const nightStart = 20 * 60 * 60 * 1000;
+  let timePercentage;
   const dayStart = 7 * 60 * 60 * 1000 + 30 * 60 * 1000;
+  const nightStart = 20 * 60 * 60 * 1000;
   const workStart =
     timeHourStart * 60 * 60 * 1000 + timeMinuteStart * 60 * 1000;
   const afternoonStart =
     timeHourEnd * 60 * 60 * 1000 + timeMinuteEnd * 60 * 1000;
-  switch (day(timeHStart, timeHEnd, timeMStart, timeMEnd)) {
+  const workEnd = timeHourEnd * 60 * 60 * 1000 + timeMinuteEnd * 60 * 1000;
+  const workTime = workEnd - workStart;
+  const dayTime = workStart - (7 * 60 * 60 * 1000 + 30 * 60 * 1000);
+  const afternoonTime = nightStart - workEnd;
+  const nightTime = 11 * 60 * 60 * 1000 + 30 * 60 * 1000;
+  let actualTime =
+    date.getHours() * 60 * 60 * 1000 + date.getMinutes() * 60 * 1000;
+  // let testTime = 0 * 60 * 60 * 1000 + 0 * 60 * 1000;
+  let timeOfDay = day(timeHStart, timeHEnd, timeMStart, timeMEnd);
+  switch (timeOfDay) {
     case "NOCHE":
-      if (date.getHours() <= 20) {
-        timePercentage =
-          100 -
-          ((nightTime - (actualTime + 4 * 60 * 60 * 1000)) * 100) / nightTime;
-      } else {
-        timePercentage =
-          100 - ((nightTime - (actualTime - nightStart)) * 100) / nightTime;
+      if (actualTime >= nightStart) {
+        timePercentage = ((actualTime - nightStart) * 100) / nightTime;
+      }
+      if (actualTime <= nightStart) {
+        timePercentage = ((actualTime + 4 * 60 * 60 * 1000) * 100) / nightTime;
       }
       break;
     case "MAÑANA":
-      timePercentage =
-        100 - ((dayTime - (actualTime - dayStart)) * 100) / dayTime;
+      timePercentage = ((actualTime - dayStart) * 100) / dayTime;
+
       break;
     case "HORARIO LABORAL":
-      timePercentage =
-        100 - ((workTime - (actualTime - workStart)) * 100) / workTime;
+      timePercentage = ((actualTime - workStart) * 100) / workTime;
       break;
     case "TARDE":
-      timePercentage =
-        100 -
-        ((afternoonTime - (actualTime - afternoonStart)) * 100) / afternoonTime;
+      timePercentage = ((actualTime - afternoonStart) * 100) / afternoonTime;
       break;
   }
-
   return timePercentage;
 }
