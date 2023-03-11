@@ -24,13 +24,7 @@ export default function dayPercentage(
     timeHourStart * 60 * 60 * 1000 + timeMinuteStart * 60 * 1000;
   const nightTime = 11 * 60 * 60 * 1000 + 30 * 60 * 1000;
   const dayTime = timeStart - (7 * 60 * 60 * 1000 + 30 * 60 * 1000);
-  // const workTime = workHours * 60 * 60 * 1000 + workMinutes * 60 * 1000;
-  const workTime =
-    (timeHourEnd - timeHourStart) * 60 * 60 * 1000 +
-    Math.abs(timeMinuteEnd - timeMinuteStart) * 60 * 1000;
-
-  // const afternoonTime =
-  //   (20 - timeHourEnd) * 60 * 60 * 1000 + timeMinuteEnd * 60 * 1000;
+  const workTime = (timeHourEnd - timeHourStart) * 60 * 60 * 1000;
   const afternoonTime =
     (20 - timeHourEnd) * 60 * 60 * 1000 - timeMinuteEnd * 60 * 1000;
   actualTime =

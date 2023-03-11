@@ -16,6 +16,7 @@ import yearPercentage from "./calculations/years/yearPercentage";
 import LinearProgressWithLabel from "./linearProgress/linearProgressWithLabel";
 import { TimeSelection } from "./app/features/timeSelection";
 import { useSelector } from "react-redux";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 function App() {
   try {
@@ -126,15 +127,22 @@ function App() {
             {dayValue} <LinearProgressWithLabel value={dayPercentageValue} />
           </div>
         </div>
-        <div>
-          <TimeSelection fillValues={fillValues} />
-        </div>
+
         <div className="footer">
           <p>App desarrollada por José Bocci en 2023.</p>
           <p>
-            Para el horario laboral se utiliza el horario municipal: 08:00 -
-            14:00
+            Para el horario laboral se utiliza:{" "}
+            {timeHourStart < 10 ? "0".concat(timeHourStart) : timeHourStart}:
+            {timeMinutesStart < 10
+              ? "0".concat(timeMinutesStart)
+              : timeMinutesStart}{" "}
+            - {timeHourEnd < 10 ? "0".concat(timeHourEnd) : timeHourEnd}:
+            {timeMinutesEnd < 10 ? "0".concat(timeMinutesEnd) : timeMinutesEnd}{" "}
+            <SettingsOutlinedIcon onClick={() => setOculto(!oculto)} />
           </p>
+          <div>
+            <TimeSelection fillValues={fillValues} oculto={oculto} />
+          </div>
           <p> Horarios usados de Mendoza, Argentina.</p>
         </div>
       </div>

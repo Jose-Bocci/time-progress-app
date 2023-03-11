@@ -6,21 +6,26 @@ export default function day(
 ) {
   const date = new Date();
   let state = "A";
-  if (date.getHours() >= 20 || date.getHours() < 7) {
-    state = "NOCHE";
-  }
-  if (date.getHours() >= timeHourEnd && date.getHours() < 20) {
-    state = "TARDE";
+
+  if (date.getHours() >= timeHourEnd) {
+    if (date.getMinutes() < timeMinuteEnd) {
+      state = "HORARIO LABORAL";
+    } else {
+      if (date.getHours() >= 20 || date.getHours() < 7) {
+        state = "NOCHE";
+      } else {
+        state = "TARDE";
+      }
+    }
   }
   if (date.getHours() >= timeHourStart && date.getHours() < timeHourEnd) {
     state = "HORARIO LABORAL";
   }
-  if (
-    date.getHours() >= 7 &&
-    date.getMinutes() >= 30 &&
-    date.getHours() < timeHourStart
-  ) {
+  if (date.getHours() > 7 && date.getHours() < timeHourStart) {
+    state = "MAÑANA";
+  } else if (date.getHours() === 7 && date.getMinutes() >= 30) {
     state = "MAÑANA";
   }
+
   return state;
 }
