@@ -6,5 +6,5 @@ export default function yearPercentage() {
   const dayOfYear = calcDayOfYear();
 
   const yearPercentage = (dayOfYear * 100) / daysInYear;
-  return yearPercentage;
+  return parseFloat(yearPercentage.toFixed(2));
 }

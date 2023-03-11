@@ -79,7 +79,6 @@ function App() {
           store.getState().timeState.end_minutes
         )
       );
-      // console.log({ timeHourEnd });
       setDayPercentageValue(
         dayPercentage(
           store.getState().timeState.start_hour,
@@ -88,9 +87,7 @@ function App() {
           store.getState().timeState.end_minutes
         )
       );
-      // console.log({ timeHourEnd });
     }
-
     // React.useEffect(() => {
     //   fillValues();
     // }, []);
